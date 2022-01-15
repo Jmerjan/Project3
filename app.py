@@ -20,8 +20,8 @@ Base=automap_base()
 Base.prepare(engine, reflect=True)
 #Base.classes.keys()
 print(Base.classes.keys())
-Sentry= Base.classes.data
-Cad=Base.classes.final
+Sentry= Base.classes.sentry
+Cad=Base.classes.cad
 Summary=Base.classes.summary
 Fireball=Base.classes.fire_ball_data
 session = Session(engine)
@@ -39,7 +39,7 @@ app = Flask(__name__)
 
 
 ## route v and dis 
-@app.route("/") 
+@app.route("/stackedplot") 
 def stackedplot ():
     stackedplotchart=session.query(Cad.v_rel, Cad.dist, Cad.cd)
     data_df= pd.DataFrame(stackedplotchart, columns=['v_rel','dist','cad'])
@@ -52,8 +52,11 @@ def stackedplot ():
         chartdata.append(cleandata)
     return jsonify(chartdata)
 
-# route bubble chart
-
+# route bubble chart summary enery mas dimater des ip 
+@app.route("/bubble") 
+def bubble ():
+    bubblechartinfo=session.query(Summary.enery, Summary.ip, Summary.mass, Summary.des, Summary.diameter)
+    
 
 # route metadata 
 

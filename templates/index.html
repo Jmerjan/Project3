@@ -7,6 +7,12 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Near Earth Object</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+crossorigin="" />  
+
 </head>
 
 <body>
@@ -23,9 +29,9 @@
 
 <!-- Dropdown -->
     <div class="row">
-      <div class="col-sm-4 bg-warning">
+      <div class="col-sm-4 bg-warning justify-content-between">
           <div class="row">
-              <div class="col-sm-12">
+              <div class="col-sm-12 justify-content-between">
                 <h5>Select an NEO</h5>
                 <select id="selDataset" onchange="optionChanged(this.value)"></select>
               </div>
@@ -33,7 +39,7 @@
 <!-- Metadata Card-->
           </div>
           <div class="row">
-            <div class="card col-sm-12" style="width: 18rem;">
+            <div class="card col-sm-12 justify-content-between" style="width: 18rem;">
                 <div class="card-body">
                   <h5 class="card-title">NEO ID/Name</h5>
                   <h6 class="card-subtitle mb-2 text-muted">NEO Metadata</h6>
@@ -44,28 +50,45 @@
         </div>
 
 <!-- Scatter Plot -->
-        <div class="col-sm-8 bg-info">
+        <div class="col-sm-8 bg-info justify-content-between">
             <div id="scatter">Scatter Plot</div>
         </div>
       </div>
 
-<!-- Bubble Chart -->
+<!-- Data Table -->
+<div class="row">
+  <div class="col-sm-12 d-flex justify-content-between"> 
+    {{Table | safe}}
+  </div>
+</div>
+
+
+<!-- Guage and Bubble Chart -->
     <div class="row">
-      <div class="col-md-12 bg-success">
+      <div class="col-md-4 col-sm-12 bg-success justify-content-between">
+        <div id="guage">Risk Guage</div>
+      </div>
+      <div class="col-md-8 col-sm-12 bg-success justify-content-between">
         <div id="bubble">Bubble Chart</div>
       </div>
     </div>
+
+<!-- Fire Ball Map -->
     <div class="row">
-        <div class="col-md-12 bg-danger">
+        <div class="col-md-12 bg-danger justify-content-between">
           <div id="map">Fire Ball Map</div>
         </div>
       </div>
   </div>
 
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <script src="Plotly-Challenge/static/app.js"></script>
-  <!-- <script src="./static/js/bonus.js"></script> -->
-  
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
+
+  <!-- Our JavaScript  NEED TO UPDATE FILE PATH-->
+  <script type="text/javascript" src="static/js/logic.js"></script>
+
 </body>
 
 </html>

@@ -1,4 +1,3 @@
-<<<<<<< HEAD:templates/index.html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -92,76 +91,4 @@ crossorigin="" />
 
 </body>
 
-=======
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Near Earth Object</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-</head>
-
-<body>
-
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 jumbotron text-center">
-        <h1>NEO Dashboard</h1>
-
-<!-- lets make this a more exciting tag line -->
-        <p>Use the interactive charts to explore the NEO datasets</p>
-      </div>
-    </div>
-
-<!-- Dropdown -->
-    <div class="row">
-      <div class="col-sm-4 bg-warning">
-          <div class="row">
-              <div class="col-sm-12">
-                <h5>Select an NEO</h5>
-                <select id="selDataset" onchange="optionChanged(this.value)"></select>
-              </div>
-
-<!-- Metadata Card-->
-          </div>
-          <div class="row">
-            <div class="card col-sm-12" style="width: 18rem;">
-                <div class="card-body">
-                  <h5 class="card-title">NEO ID/Name</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">NEO Metadata</h6>
-                  <p id="sample-metadata" class="card-text">Some quick detail</p>
-                </div>
-              </div>
-          </div>
-        </div>
-
-<!-- Scatter Plot -->
-        <div class="col-sm-8 bg-info">
-            <div id="scatter">Scatter Plot</div>
-        </div>
-      </div>
-
-<!-- Bubble Chart -->
-    <div class="row">
-      <div class="col-md-12 bg-success">
-        <div id="bubble">Bubble Chart</div>
-      </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12 bg-danger">
-          <div id="map">Fire Ball Map</div>
-        </div>
-      </div>
-  </div>
-
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <script src="Plotly-Challenge/static/app.js"></script>
-  <!-- <script src="./static/js/bonus.js"></script> -->
-  
-</body>
-
->>>>>>> 4a06aadfb8cc3a611fa6dad2fbd58d9b4565d485:index.html
 </html>

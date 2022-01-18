@@ -2,27 +2,27 @@
 // async function main(){
 
 
-function createdropdown(){
-const response = fetch //("/summary route")//
+// function createdropdown(){
+// const response = fetch //("/summary route")//
 
-// creating dropdown menu
-var dropdown= document.getElementById("selDataset"); 
-//make sure variable in html is same
+// // creating dropdown menu
+// var dropdown= document.getElementById("selDataset"); 
+// //make sure variable in html is same
 
-//create a for loop to get all the ids for dropdown
-for(var id = 0; id < summary.des.length; id++) {
-    // var id_demographics=names[id];
-    var descriptor = summary.des[id];
-    var info= document.createElement("option");
-    info.textContent=descriptor;
-    info.value=descriptor;
-    dropdown.appendChild(info);
-    // console.log(info)
-    // console.log(id_demographics)
-}
-// panel dropdown info
-var PANEL=document.getElementById("sample-metadata")
-PANEL.innerHTML=""
+// //create a for loop to get all the ids for dropdown
+// for(var id = 0; id < summary.des.length; id++) {
+//     // var id_demographics=names[id];
+//     var descriptor = summary.des[id];
+//     var info= document.createElement("option");
+//     info.textContent=descriptor;
+//     info.value=descriptor;
+//     dropdown.appendChild(info);
+//     // console.log(info)
+//     // console.log(id_demographics)
+// }
+// // panel dropdown info
+// var PANEL=document.getElementById("sample-metadata")
+// PANEL.innerHTML=""
 
 // // get initial ID 
 // var
@@ -31,7 +31,7 @@ PANEL.innerHTML=""
 //   console.log(`${key.toUpperCase()}: ${value}`);
 //   PANEL.append(`${key.toUpperCase()}: ${value} \n`)
 // }
-} 
+// } 
 
 // https://plotly.com/python/
 

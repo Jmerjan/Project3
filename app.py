@@ -44,6 +44,7 @@ def home ():
 @app.route("/stackedplot") 
 def stackedplot ():
     stackedplotchart=session.query(Cad.v_rel, Cad.dist, Cad.cd, Cad.des)
+
     data_df = pd.DataFrame(stackedplotchart, columns=['v_rel','dist','cad', 'des'])
     chartdata=[]
     for v_rel, dist, cd, des in stackedplotchart:
@@ -74,6 +75,12 @@ def bubble ():
 # route gauge 
 
 # route map fire ball
+@app.route('/fireballmap')
+def fireball():
+    fireballinfo=session.query(Fireball.date, Fireball.latitude, Fireball.latdirection, Fireball.longitude, Fireball.londirection)
+    
+    
+    return
 
 if __name__ == "__main__":
     app.run(debug=True)

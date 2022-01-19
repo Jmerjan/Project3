@@ -1,30 +1,30 @@
 
-// async function main(){
+// async function main() {
 
 
-// function createdropdown(){
-// const response = fetch //("/summary route")//
+async function createdropdown() {
+  const response = await fetch ("/dropdown")
+  const data = await response.json()
+  console.log(data)
+  // creating dropdown menu
+  var dropdown= document.getElementById("selDataset"); 
+  //make sure variable in html is same
 
-// // creating dropdown menu
-// var dropdown= document.getElementById("selDataset"); 
-// //make sure variable in html is same
-
-// //create a for loop to get all the ids for dropdown
-// for(var id = 0; id < summary.des.length; id++) {
-//     // var id_demographics=names[id];
-//     var descriptor = summary.des[id];
-//     var info= document.createElement("option");
-//     info.textContent=descriptor;
-//     info.value=descriptor;
-//     dropdown.appendChild(info);
-//     // console.log(info)
-//     // console.log(id_demographics)
-// }
-// // panel dropdown info
-// var PANEL=document.getElementById("sample-metadata")
-// PANEL.innerHTML=""
-
-// // get initial ID 
+  //create a for loop to get all the ids for dropdown
+  for(var i = 0; i < data.length; i++) {
+      // var id_demographics=names[id];
+      var descriptor = data[i].des;
+      var info = document.createElement("option");
+      info.textContent = descriptor;
+      info.value = descriptor;
+      dropdown.appendChild(info);
+      // console.log(info)
+      // console.log(id_demographics)
+  }
+  // panel dropdown info
+  var PANEL = document.getElementById("sample-metadata")
+  PANEL.innerHTML = ""
+// get initial ID 
 // var
 
 // for (let [key, value] of Object.entries(result)){
@@ -34,53 +34,61 @@
 // } 
 
 // https://plotly.com/python/
-
+}
+createdropdown();
 // Chart 1 // Stacked plot of distance/velocity (y axis) over time (x axis)
 
 async function stackedplot() {
   const response = await fetch ("/stackedplot");
-  const caddata_response = await response.json();
-  console.log(caddata_response)
-  
-//   var distancetrace= {
-//     type: 'scatter',
-//     //from CAD Data CD
-//     x: 
-//     // y = dist from CAD 
-//     y: 
-//     //
-//     // text: hovertext,
-//     // orientation: 'h'
-// }
-// var velocitytrace= {
-//   type: 'scatter',
-//   // from Cad Data CD
-//   x: ,
-//   // from CAD Data Route
-//   y: ,
-//   // text: hovertext,
-//   // orientation: 'h'
-// }
+  const caddata = await response.json();
+  console.log(caddata)
 
-// var scatterdata= [velocitytrace, distancetrace]
-// var layout = {
-//     title: 'Top 10 OTUs',
-//     grid: {
-//       rows:2,
-//       column:1,
-//       pattern: "independent",
-//       //roworder
-//     },
+  function des_int(dictionary) {
+    return dictionary.des == '2012 VS76';
+    }    
+      
+  // Initialize an empty array for the sample's data
+  let filteredDes = caddata.filter(des_int);
+
+  var distancetrace= {
+    type: 'scatter',
+    //from CAD Data CD
+    x: filteredDes.des,
+    // y = dist from CAD 
+    y: filteredDes.dist
+    //
+    // text: hovertext,
+    // orientation: 'h'
+}
+var velocitytrace= {
+  type: 'scatter',
+  // from Cad Data CD
+  x: filteredDes.cd,
+  // from CAD Data Route
+  y: filteredDes.v_rel
+  // text: hovertext,
+  // orientation: 'h'
+}
+
+var scatterdata= [velocitytrace, distancetrace]
+var layout = {
+    title: 'Top 10 OTUs',
+    grid: {
+      rows:2,
+      column:1,
+      pattern: "independent",
+      //roworder
+    },
     
-//     yaxis: {
-//       autorange: true,
-//     },
-//     xaxis: {
-//       autorange: true,
-//     },
-//   };
+    yaxis: {
+      autorange: true,
+    },
+    xaxis: {
+      autorange: true,
+    },
+  };
 
-//   Plotly.newPlot("scatter", scatterdata, layout);
+  Plotly.newPlot("scatter", scatterdata, layout);
 
 }
 stackedplot();

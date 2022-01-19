@@ -38,7 +38,6 @@ app = Flask(__name__)
 def home ():
     return render_template('index.html')
 
-
 ## route v and dis 
 @app.route("/stackedplot") 
 def stackedplot ():
@@ -69,9 +68,11 @@ def summary ():
         cleaninfo['mass'] = mass
         cleaninfo['des'] = des
         cleaninfo['diameter'] = diameter
+
         summaryinfo.append(cleaninfo)
     return jsonify(summaryinfo)
-# route gauge 
+
+
 
 # route map fire ball
 @app.route('/fireballmap')

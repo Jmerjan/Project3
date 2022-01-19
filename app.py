@@ -14,14 +14,14 @@ from sqlalchemy.ext.automap import automap_base
 
 
 #database setup
-# rds_connection_string = "postgres:Korudo7$@localhost:5432/cad"
-rds_connection_string = "postgres:m3t30rS4uru5!5m@localhost:5432/cad"
+rds_connection_string = "postgres:Korudo7$@localhost:5432/cad"
+#rds_connection_string = "postgres:m3t30rS4uru5!5m@localhost:5432/cad"
 engine = create_engine(f'postgresql://{rds_connection_string}')
 Base = automap_base()
 Base.prepare(engine, reflect=True)
 #Base.classes.keys()
 print(Base.classes.keys())
-# Sentry = Base.classes.sentry
+Sentry = Base.classes.sentry
 Cad = Base.classes.cad
 Summary = Base.classes.summary
 Fireball = Base.classes.fire_ball_data
@@ -55,44 +55,43 @@ def stackedplot ():
     jsonchartdata = jsonify(chartdata)
     return jsonchartdata
 
-# route bubble chart summary enery mas dimater des ip 
-@app.route("/bubble") 
-def bubble ():
-    bubblechartinfo=session.query(Summary.energy, Summary.ip, Summary.mass, Summary.des, Summary.diameter)
-    bubble_df = pd.DataFrame(bubblechartinfo, columns=['energy', 'ip', 'mass', 'des', 'diameter'])
-    bubbleinfo =[]
-    for energy , ip, mass, des, diameter in bubblechartinfo:
+# route summary information
+@app.route("/summary") 
+def summary ():
+    summarychartinfo=session.query(Summary.energy, Summary.ip, Summary.mass, Summary.des, Summary.diameter)
+    summary_df = pd.DataFrame(summarychartinfo, columns=['energy', 'ip', 'mass', 'des', 'diameter'])
+    summaryinfo =[]
+    for energy , ip, mass, des, diameter in summarychartinfo:
         cleaninfo={}
         cleaninfo['energy'] = energy
         cleaninfo['ip']= ip
         cleaninfo['mass'] = mass
         cleaninfo['des'] = des
         cleaninfo['diameter'] = diameter
-        bubbleinfo.append(cleaninfo)
-    return jsonify(bubbleinfo)
 
-# route bubble chart summary enery mas dimater des ip 
-@app.route("/dropdown") 
-def summary ():
-    des_query = session.query(Summary.des, Summary.ndop)
-    summary_df = pd.DataFrame(des_query, columns=['des', 'ndop'])
-    summaryinfo =[]
-    for des, ndop in des_query:
-        cleaninfo = {}
-        cleaninfo['des'] = des
-        cleaninfo['ndop'] = ndop
         summaryinfo.append(cleaninfo)
     return jsonify(summaryinfo)
 
-# route gauge 
+
 
 # route map fire ball
 @app.route('/fireballmap')
 def fireball():
     fireballinfo=session.query(Fireball.date, Fireball.latitude, Fireball.latdirection, Fireball.longitude, Fireball.londirection)
-    
-    
-    return
+    fireball_df= pd.DataFrame(fireballinfo, columns=['date', 'latitude', 'latdirection', 'longitude', 'londirection'])
+    fireballdata=[]
+    for date, latitude, latdirection, longitude, londirection in fireballinfo:
+        cleanfire={} 
+        cleanfire['date'] = date
+        cleanfire['latitude'] = latitude
+        cleanfire['latdirection'] = latdirection
+        cleanfire['longitude']= longitude
+        cleanfire['londirection'] = londirection
+        fireballdata.append(cleanfire)
+    return jsonify(fireballdata)
+
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -14,14 +14,14 @@ from sqlalchemy.ext.automap import automap_base
 
 
 #database setup
-rds_connection_string = "postgres:Korudo7$@localhost:5432/cad"
-#rds_connection_string = "postgres:m3t30rS4uru5!5m@localhost:5432/cad"
+# rds_connection_string = "postgres:Korudo7$@localhost:5432/cad"
+rds_connection_string = "postgres:m3t30rS4uru5!5m@localhost:5432/cad"
 engine = create_engine(f'postgresql://{rds_connection_string}')
 Base = automap_base()
 Base.prepare(engine, reflect=True)
 #Base.classes.keys()
 print(Base.classes.keys())
-Sentry = Base.classes.sentry
+# Sentry = Base.classes.sentry
 Cad = Base.classes.cad
 Summary = Base.classes.summary
 Fireball = Base.classes.fire_ball_data

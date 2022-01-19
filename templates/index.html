@@ -13,6 +13,8 @@
 integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
 crossorigin="" />  
 
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
 </head>
 
 <body>
@@ -43,7 +45,7 @@ crossorigin="" />
                 <div class="card-body">
                   <h5 class="card-title">NEO ID/Name</h5>
                   <h6 class="card-subtitle mb-2 text-muted">NEO Metadata</h6>
-                  <p id="sample-metadata" class="card-text">Some quick detail</p>
+                  <p id="sample-metadata" class="card-text"></p>
                 </div>
               </div>
           </div>
@@ -63,10 +65,10 @@ crossorigin="" />
 </div>
 
 
-<!-- Guage and Bubble Chart -->
+<!-- Gauge and Bubble Chart -->
     <div class="row">
       <div class="col-md-4 col-sm-12 bg-success justify-content-between">
-        <div id="guage">Risk Guage</div>
+        <div id="gauge">Risk Gauge</div>
       </div>
       <div class="col-md-8 col-sm-12 bg-success justify-content-between">
         <div id="bubble">Bubble Chart</div>
@@ -87,7 +89,7 @@ crossorigin="" />
     crossorigin=""></script>
 <!-- Our JavaScript  NEED TO UPDATE FILE PATH  -->
   <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
 
 </body>
 

@@ -15,7 +15,8 @@ from sqlalchemy.ext.automap import automap_base
 
 #database setup
 # rds_connection_string = "postgres:Korudo7$@localhost:5432/cad"
-rds_connection_string = "postgres:m3t30rS4uru5!5m@localhost:5432/cad"
+# rds_connection_string = "postgres:m3t30rS4uru5!5m@localhost:5432/cad"
+rds_connection_string = "postgres:postgres@localhost:5050/cad"
 engine = create_engine(f'postgresql://{rds_connection_string}')
 Base = automap_base()
 Base.prepare(engine, reflect=True)

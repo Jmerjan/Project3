@@ -36,9 +36,7 @@ app = Flask(__name__)
     ## route html
 @app.route("/") 
 def home ():
-
     return render_template('index.html')
-
 
 ## route v and dis 
 @app.route("/stackedplot") 
@@ -72,6 +70,20 @@ def bubble ():
         cleaninfo['diameter'] = diameter
         bubbleinfo.append(cleaninfo)
     return jsonify(bubbleinfo)
+
+# route bubble chart summary enery mas dimater des ip 
+@app.route("/dropdown") 
+def summary ():
+    des_query = session.query(Summary.des, Summary.ndop)
+    summary_df = pd.DataFrame(des_query, columns=['des', 'ndop'])
+    summaryinfo =[]
+    for des, ndop in des_query:
+        cleaninfo = {}
+        cleaninfo['des'] = des
+        cleaninfo['ndop'] = ndop
+        summaryinfo.append(cleaninfo)
+    return jsonify(summaryinfo)
+
 # route gauge 
 
 # route map fire ball

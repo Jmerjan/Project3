@@ -79,15 +79,18 @@ def fireball():
     fireballinfo=session.query(Fireball.date, Fireball.latitude, Fireball.latdirection, Fireball.longitude, Fireball.londirection)
     fireball_df= pd.DataFrame(fireballinfo, columns=['date', 'latitude', 'latdirection', 'longitude', 'londirection'])
     fireballdata=[]
-    for date, latitude, latdirection, longitude, londirection in fireballinfo
-    cleanfire={} 
-    cleanfire['date'] = date
-    cleanfire['latitude'] = latitude
-    cleanfire['latdirection'] = latdirection
-    cleanfire['longitude']= longitude
-    cleanfire['londirection'] = londirection
-    fireballdata.append(cleanfire)
+    for date, latitude, latdirection, longitude, londirection in fireballinfo:
+        cleanfire={} 
+        cleanfire['date'] = date
+        cleanfire['latitude'] = latitude
+        cleanfire['latdirection'] = latdirection
+        cleanfire['longitude']= longitude
+        cleanfire['londirection'] = londirection
+        fireballdata.append(cleanfire)
     return jsonify(fireballdata)
+
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)

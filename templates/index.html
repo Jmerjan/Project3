@@ -38,9 +38,9 @@ crossorigin="" />
                 <h5>Select an NEO</h5>
                 <select id="selDataset" onchange="optionChanged(this.value)"></select>
               </div>
-
+            </div>
 <!-- Metadata Card-->
-          </div>
+
           <div class="row">
             <div class="card col-sm-12 justify-content-between" style="width: 18rem;">
                 <div class="card-body">
@@ -53,13 +53,14 @@ crossorigin="" />
         </div>
 
 <!-- Scatter Plot -->
-        <div class="col-sm-8 bg-info justify-content-between graph-container">
-            <div id="scatter">Scatter Plot</div>
+        <!-- <div class="col-sm-8 bg-info justify-content-between graph-container"> --> -->
+        <div class="col-sm-8">
+            <div id="scatter"></div>
         </div>
       </div>
 
 <!-- Data Table -->
-<div class="row">
+<!-- <div class="row">
   <div class="col-sm-12 d-flex justify-content-between"> 
     {{Table | safe}}
   </div>
@@ -68,18 +69,21 @@ crossorigin="" />
 
 <!-- Gauge and Bubble Chart -->
     <div class="row">
-      <div class="col-md-4 col-sm-12 bg-success justify-content-between graph-container">
-        <div id="gauge">Risk Gauge</div>
+      <!-- <div class="col-md-4 col-sm-12 bg-success justify-content-between graph-container"> --> -->
+        <div class="col-md-4">
+        <div id="gauge"></div>
       </div>
-      <div class="col-md-8 col-sm-12 bg-success justify-content-between graph-container">
-        <div id="bubble">Bubble Chart</div>
+      <!-- <div class="col-md-8 col-sm-12 bg-success justify-content-between graph-container"> -->
+        <div class="col-md-8">
+        <div id="bubble"></div>
       </div>
     </div>
 
 <!-- Fire Ball Map -->
     <div class="row">
-        <div class="col-md-12 bg-danger justify-content-between">
-          <div id="map">Fire Ball Map</div>
+        <!-- <div class="col-md-12 bg-danger justify-content-between"> -->
+          <div class="col-md-12">
+          <div id="map"></div>
         </div>
       </div>
   </div>

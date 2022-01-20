@@ -141,7 +141,7 @@ async function bubblechart(descriptor) {
   var bubbletrace = {
     mode: 'markers',
     marker: { 
-      size: diameterArray,
+      size: diameterArray*15000,
       color: ipArray
       //hovertext: //tbd
 
@@ -212,15 +212,15 @@ const data = await response.json()
   }).addTo(myMap); 
   
 
-  var fbIcon = L.icon({
-      iconUrl: 'images/fireball.png',
-      // shadowUrl: 'leaf-shadow.png',
-      iconSize:     [38, 95], // size of the icon
-      // shadowSize:   [50, 64], // size of the shadow
-      iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-      // shadowAnchor: [4, 62],  // the same for the shadow
-      popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-  });
+  // var fbIcon = L.icon({
+  //     iconUrl: 'images/fireball.png',
+  //     // shadowUrl: 'leaf-shadow.png',
+  //     iconSize:     [38, 95], // size of the icon
+  //     // shadowSize:   [50, 64], // size of the shadow
+  //     iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+  //     // shadowAnchor: [4, 62],  // the same for the shadow
+  //     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+  // });
 
   const fbMarkers = [];
   //iterate through data to grab details
@@ -228,16 +228,16 @@ const data = await response.json()
       let fireballs = data[i];
       // let location = quake.properties.place;
       let date = new Date(fireballs.date);
-      let lat = fireballs.latitude
-      let lon = fireballs.longitude
+      let latitude = fireballs.latitude
+      let longitude = fireballs.longitude
       // define the markers
-      let fbMarker = L.fbIcon([lat, lon], {
+      let fbMarker = L.circleMarker([latitude, longitude], {
       colorOpacity:1,
-      color: black,
+      color: "black",
       weight: 1,   
       fillOpacity: 1,
       // fillColor: color, 
-      // radius: magnitude * 20000
+      radius: 5
       })
       .bindPopup("<H2>" + location + '<H2>' + '<hr>' +
       '<h4>' + 'Date: ' + date  + '<h4>');

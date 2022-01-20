@@ -46,7 +46,7 @@ createdropdown(initialDes);
 // Chart 1 // Stacked plot of distance/velocity (y axis) over time (x axis)
 
 async function stackedplot(descriptor) {
-  const response = await fetch ("/stackedplot");
+  const response = await fetch ("/Cad");
   const caddata = await response.json();
   console.log(caddata)
       
@@ -279,7 +279,7 @@ const data = await response.json()
 
 }
 
-// fbMap();
+fbMap();
 
 
 document.querySelector("#selDataset").addEventListener("change", event => {

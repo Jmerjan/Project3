@@ -21,8 +21,6 @@ async function createdropdown(descriptor) {
       info.textContent = des;
       info.value = des;
       dropdown.appendChild(info);
-      // console.log(info)
-      // console.log(id_demographics)
   }
 
   // panel dropdown info
@@ -72,37 +70,37 @@ async function stackedplot(descriptor) {
   console.log(cdArray, velArray, distArray)
 
   var distancetrace = {
-    type: 'scatter',
     x: cdArray,
-    y: distArray
-    // text: hovertext,
-    // orientation: 'h'
-  }
+    y: distArray,
+    type: 'scatter'
+  };
 
   var velocitytrace = {
-    type: 'scatter',
     x: cdArray,
-    y: velArray
-    // text: hovertext,
-    // orientation: 'h'
-  }
+    y: velArray,
+    xaxis: 'x2',
+    yaxis: 'y2',
+    type: 'scatter'
+  };
 
-  var scatterdata = [velocitytrace, distancetrace]
+  var scatterdata = [distancetrace, velocitytrace];
+
   var layout = {
-      title: 'Velocity, Distance vs Date',
+      title: 'Distance, Velocity vs Date',
       grid: {
-        rows:2,
-        column:1,
+        rows: 2,
+        columns: 1,
         pattern: "independent",
-        //roworder
+        roworder: "bottom to top",
+        // subplots: [['xym x2y2']]
       },
       
-      yaxis: {
-        autorange: true,
-      },
-      xaxis: {
-        autorange: true,
-      },
+      // yaxis: {
+      //   autorange: true,
+      // },
+      // xaxis: {
+      //   autorange: true,
+      // },
     };
 
   Plotly.newPlot("scatter", scatterdata, layout);
@@ -137,13 +135,13 @@ async function bubblechart(descriptor) {
   }
 
   console.log(diameterArray, massArray, energyArray, desArray, ipArray)
-
+  // units mass - kg, energy = mt Megatons of TNT, diameter = km, 16 kilotons Hiroshima bomb, 16 kilotons .016 MT
   var bubbletrace = {
     mode: 'markers',
     marker: { 
-      size: diameterArray*15000,
+      size: diameterArray.map(di => di*1000),
       color: ipArray
-      //hovertext: //tbd
+      //hovertext: mass, energy, diameter, 
 
     },
     x: massArray,
@@ -164,13 +162,13 @@ async function bubblechart(descriptor) {
 var gaugedata = [
   {
     domain: { x: [0, 1], y: [0, 1] },
-    value: summarydata.filter(desFinder).ip,
-    title: { text: "Predictd Probability of Impact" },
+    value: summarydata.filter(desFinder)[0].ip,
+    title: { text: "Predicted Probability of Impact" },
     type: "indicator",
     mode: "gauge+number+delta",
-    delta: { reference: 380 },
+    delta: { reference: 1 },
     gauge: {
-      axis: { range: [null, 1] },
+      axis: { range: [null, summarydata.filter(desFinder)[0].ip*100] },
       steps: [
         { range: [0, 250], color: "lightgray" },
         { range: [250, 400], color: "gray" }
@@ -184,7 +182,7 @@ var gaugedata = [
   }
 ];
 
-var layout = { width: 600, height: 450, margin: { t: 0, b: 0 } };
+var layout = { width: 450, height: 450, margin: { t: 0, b: 0 } };
 
 Plotly.newPlot('gauge', gaugedata, layout);
 

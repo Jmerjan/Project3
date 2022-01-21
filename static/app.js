@@ -69,10 +69,13 @@ async function stackedplot(descriptor) {
 
   console.log(cdArray, velArray, distArray)
 
+  var kmDistArray = distArray.map(dist => dist * 1.496e8)
+
   var distancetrace = {
     x: cdArray,
-    y: distArray,
-    type: 'scatter'
+    y: kmDistArray,
+    type: 'scatter',
+    name: 'Distance from Earth'
   };
 
   var velocitytrace = {
@@ -80,7 +83,8 @@ async function stackedplot(descriptor) {
     y: velArray,
     xaxis: 'x2',
     yaxis: 'y2',
-    type: 'scatter'
+    type: 'scatter',
+    name: 'Velocity with respect to Earth'
   };
 
   var scatterdata = [distancetrace, velocitytrace];
@@ -92,15 +96,32 @@ async function stackedplot(descriptor) {
         columns: 1,
         pattern: "independent",
         roworder: "bottom to top",
-        // subplots: [['xym x2y2']]
       },
       
-      // yaxis: {
-      //   autorange: true,
-      // },
-      // xaxis: {
-      //   autorange: true,
-      // },
+      xaxis: {
+        autorange: true,
+        title: {
+          text: 'Date',
+        }
+      },
+
+      xaxis2: {
+        visible: false,
+      },
+
+      yaxis: {
+        autorange: true,
+        title: {
+          text: 'Distance (km)',
+        }
+      },
+
+      yaxis2: {
+        autorange: true,
+        title: {
+          text: 'Velocity (km/s)',
+        }
+      },
     };
 
   Plotly.newPlot("scatter", scatterdata, layout);
@@ -134,28 +155,74 @@ async function bubblechart(descriptor) {
     ipArray.push(summarydata[i].ip)
   }
 
+  var textArray = [];
+  for (var i = 0; i < diameterArray.length; i++) {
+    var objectText = `Object: ${diameterArray[i]} <br>Mass (kg): ${massArray[i]} <br>Diameter (km): ${diameterArray[i]} <br>Energy (MT): ${energyArray[i]} <br>Probability: ${ipArray[i]}`
+    textArray.push(objectText)
+  }
+
   console.log(diameterArray, massArray, energyArray, desArray, ipArray)
   // units mass - kg, energy = mt Megatons of TNT, diameter = km, 16 kilotons Hiroshima bomb, 16 kilotons .016 MT
   var bubbletrace = {
     mode: 'markers',
+    text: textArray,
     marker: { 
       size: diameterArray.map(di => di*1000),
-      color: ipArray
-      //hovertext: mass, energy, diameter, 
-
+      color: ipArray,
     },
     x: massArray,
     y: energyArray
-    //
-    // text: hovertext,
-    // orientation: 'h'
   }
 
-  //come back to do var bubblelayout
+  var mappedIpArray = ipArray.map(prob => parseInt(prob))
+  console.log(mappedIpArray)
+  console.log(Math.max(parseInt(mappedIpArray)))
+  var bubblelayout = {
+    title: 'Object Energy vs Mass',
+    shapes: [
+    {
+        type: 'line',
+        xref: 'paper',
+        x0: 0,
+        y0: .016,
+        x1: 1,
+        y1: .016,
+        line:{
+            color: 'rgb(255, 0, 0)',
+            width: 2,
+            dash:'dot'
+        }
+    }
+    ],
+    xaxis: {
+      title: {
+        text: 'Mass (kg)',
+      }
+    },
+    yaxis: {
+      title: {
+        text: 'Energy (MT, Megatons of TNT)',
+      }
+    },
+
+    annotations: [
+      {
+        x: 8e7,
+        y: .016,
+        xref: 'x',
+        yref: 'y',
+        text: 'Power of Hiroshima Bomb: 16 KT',
+        showarrow: true,
+        arrowhead: 3,
+        ax: 0,
+        ay: -40
+      }
+    ]
+}
 
   var bubbledata = [bubbletrace];
 
-  Plotly.newPlot("bubble", bubbledata);
+  Plotly.newPlot("bubble", bubbledata, bubblelayout);
 
 // Gauge chart for Torino scale //
 
@@ -168,16 +235,11 @@ var gaugedata = [
     mode: "gauge+number+delta",
     delta: { reference: 1 },
     gauge: {
-      axis: { range: [null, summarydata.filter(desFinder)[0].ip*100] },
-      steps: [
-        { range: [0, 250], color: "lightgray" },
-        { range: [250, 400], color: "gray" }
-      ],
+      axis: { range: [null, 5e-5] },
       threshold: {
-        line: { color: "red", width: 4 },
-        thickness: 0.75,
-        value: 490
-      }
+        'line': {'color': "red", 'width': 4},
+        'thickness': 0.75,
+        'value': 5e-5}
     }
   }
 ];

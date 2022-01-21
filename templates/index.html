@@ -23,41 +23,37 @@ crossorigin="" />
   <div class="container">
     <div class="row">
       <div class="col-md-12 jumbotron text-center">
-        <h1>NEO Dashboard</h1>
+        <h1 class="font-weight-bold">NEO Dashboard</h1>
 
 <!-- lets make this a more exciting tag line -->
-        <p>Use the interactive charts to explore the NEO datasets</p>
+        <p class="font-weight-bold">Use the interactive charts to explore the NEO datasets</p>
       </div>
     </div>
 
 <!-- Dropdown -->
     <div class="row">
-      <div class="col-sm-4 bg-warning justify-content-between">
-          <div class="row">
-              <div class="col-sm-12 justify-content-between">
-                <h5>Select an NEO</h5>
-                <select id="selDataset" onchange="optionChanged(this.value)"></select>
-              </div>
-            </div>
+      <div class="col-sm-2">
+        <h5>Select an NEO</h5>
+        <select id="selDataset" onchange="optionChanged(this.value)"></select>
+      </div>
+
 <!-- Metadata Card-->
-
-          <div class="row">
-            <div class="card col-sm-12 justify-content-between" style="width: 18rem;">
-                <div class="card-body">
-                  <h5 class="card-title">NEO ID/Name</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">NEO Metadata</h6>
-                  <p id="sample-metadata" class="card-text"></p>
-                </div>
-              </div>
-          </div>
-        </div>
-
-<!-- Scatter Plot -->
-        <!-- <div class="col-sm-8 bg-info justify-content-between graph-container"> -->
-        <div class="col-sm-8">
-            <div id="scatter"></div>
+      <div class="card col-sm-10 " style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title"></h5>
+          <h6 class="card-subtitle mb-2 text-muted">NEO Metadata</h6>
+          <p id="sample-metadata" class="card-text"></p>
         </div>
       </div>
+    </div>
+
+
+<!-- Scatter Plot -->
+    <div class="row">
+      <div class="col-sm-12">
+        <div id="scatter"></div>
+    </div>
+  </div>
 
 <!-- Data Table -->
 <!-- <div class="row">
@@ -66,34 +62,37 @@ crossorigin="" />
   </div>
 </div>
 
+<!-- Gauge and Bubble Chart  -->
 
-<!-- Gauge and Bubble Chart -->
     <div class="row">
-      <!-- <div class="col-md-4 col-sm-12 bg-success justify-content-between graph-container"> --> -->
-        <div class="col-md-4">
+      <div class="col-md-4">
         <div id="gauge"></div>
       </div>
       <!-- <div class="col-md-8 col-sm-12 bg-success justify-content-between graph-container"> -->
-        <div class="col-md-8">
+      <div class="col-md-8">
         <div id="bubble"></div>
       </div>
     </div>
+  </div>   
 
 <!-- Fire Ball Map -->
+ <div class="container">
     <div class="row">
-        <!-- <div class="col-md-12 bg-danger justify-content-between"> -->
-          <div class="col-md-12">
-          <div id="map"></div>
-        </div>
+      <div class="col-sm-12">
+        <div id="map"></div>
       </div>
-  </div>
+    </div>
+  </div>  
 
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
     integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
     crossorigin=""></script>
+
 <!-- Our JavaScript  NEED TO UPDATE FILE PATH  -->
-  <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
+  <!-- <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script> -->
+  <script type="text/javascript" src="static/app.js"></script>
+
 
 
 </body>

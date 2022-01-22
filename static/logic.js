@@ -62,8 +62,6 @@ async function fbMap() {
           zoom: 2,
           layers: [street, fbLayer]
       });
-      // myMap.addLayer(fbLayer)
-      // myMap.addLayer(streetMap)
       
       L.control.layers(baseMaps, overlayMaps, {
         collapsed: false

@@ -8,21 +8,12 @@ import sqlalchemy
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
 import pandas as pd
-# from flask import Flask, jsonify
 from sqlalchemy.ext.automap import automap_base
 
-
-
-
-
 #database setup
-# rds_connection_string = "postgres:Korudo7$@localhost:5432/cad"
-#rds_connection_string = "postgres:m3t30rS4uru5!5m@localhost:5432/cad"
-# engine = create_engine(f'postgresql://{rds_connection_string}')
 engine = create_engine("sqlite:///cad.sqlite")
 Base = automap_base()
 Base.prepare(engine, reflect = True)
-#Base.classes.keys()
 print(Base.classes.keys())
 Sentry = Base.classes.sentry
 Cad = Base.classes.cad
@@ -34,7 +25,7 @@ app = Flask(__name__)
 
 #flask routes
 
-    ## route html
+## route html
 @app.route("/") 
 def home():
     return render_template('index.html')
@@ -70,15 +61,14 @@ def summary():
     session = Session(engine)
 
     summarychartinfo = session.query(Summary.energy, Summary.ip, Summary.mass, Summary.des, Summary.diameter, Summary.darc, Summary.h,
-                                    Summary.nobs, Summary.v_inf, Summary.first_obs, Summary.pdate,
-                                    Summary.cdate, Summary.ps_cum, Summary.v_imp, Summary.ps_max, Summary.last_obs,
-                                    Summary.fullname, Summary.n_imp, Summary.ts_max)
+                                    Summary.nobs, Summary.v_inf, Summary.first_obs, Summary.cdate, Summary.v_imp, Summary.last_obs,
+                                    Summary.fullname, Summary.n_imp)
 
     session.close()
 
-    summary_df = pd.DataFrame(summarychartinfo, columns=['energy', 'ip', 'mass', 'des', 'diameter', 'h', 'darc','nobs', 'v_inf', 'first_obs', 'pdate', 'cdate', 'ps_cum', 'v_imp', 'ps_max', 'last_obs', 'fullname', 'n_imp', 'ts_max'])
+    summary_df = pd.DataFrame(summarychartinfo, columns=['energy', 'ip', 'mass', 'des', 'diameter', 'h', 'darc','nobs', 'v_inf', 'first_obs', 'cdate', 'v_imp', 'last_obs', 'fullname', 'n_imp'])
     summaryinfo = []
-    for energy , ip, mass, des, diameter, darc, h, nobs, v_inf, first_obs, pdate, cdate, ps_cum, v_imp, ps_max, last_obs, fullname, n_imp, ts_max, in summarychartinfo:
+    for energy , ip, mass, des, diameter, darc, h, nobs, v_inf, first_obs, cdate, v_imp, last_obs, fullname, n_imp, in summarychartinfo:
         cleaninfo = {}
         cleaninfo['energy'] = energy
         cleaninfo['darc'] = darc
@@ -88,16 +78,12 @@ def summary():
         cleaninfo['mass'] = mass
         cleaninfo['v_inf'] = v_inf
         cleaninfo['first_obs'] = first_obs
-        cleaninfo['pdate'] = pdate
         cleaninfo['cdate'] = cdate
-        cleaninfo['ps_cum'] = ps_cum
         cleaninfo['diameter'] = diameter
         cleaninfo['v_imp'] = v_imp
-        cleaninfo['ps_max'] = ps_max
         cleaninfo['last_obs'] = last_obs
         cleaninfo['fullname'] = fullname
         cleaninfo['n_imp'] = n_imp
-        cleaninfo['ts_max'] = ts_max
         cleaninfo['des'] = des
         summaryinfo.append(cleaninfo)
     return jsonify(summaryinfo)

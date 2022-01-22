@@ -15,7 +15,6 @@ async function createdropdown(descriptor) {
 
   //create a for loop to get all the ids for dropdown
   for(var i = 0; i < data.length; i++) {
-      // var id_demographics=names[id];
       var des = data[i].des;
       var info = document.createElement("option");
       info.textContent = des;
@@ -23,34 +22,28 @@ async function createdropdown(descriptor) {
       dropdown.appendChild(info);
   }
 
-  // panel dropdown info
-  // var metadataPanel = document.getElementById("sample-metadata")
-  // metadataPanel.innerHTML = ""
-
   var result = data.filter(desFinder)
 
-var rowHead = document.createElement("tr");
-var rowValue = document.createElement("tr");
+  var rowHead = document.createElement("tr");
+  var rowValue = document.createElement("tr");
 
-for (let key of Object.keys(result[0])) {
-  var tHead = document.createElement("th");
-  tHead.textContent = key;
-  rowHead.append(tHead)
-}
+  for (let key of Object.keys(result[0])) {
+    var tHead = document.createElement("th");
+    tHead.textContent = key;
+    rowHead.append(tHead)
+  }
 
-for (let value of Object.values(result[0])) {
-var td = document.createElement("td");
-td.textContent = value;
-rowValue.append(td)
-}
+  for (let value of Object.values(result[0])) {
+  var td = document.createElement("td");
+  td.textContent = value;
+  rowValue.append(td)
+  }
 
-const metaDataTable = document.querySelector("#metadatatable");
-metaDataTable.innerHTML = "";
-metaDataTable.append(rowHead)
-metaDataTable.append(rowValue)
+  const metaDataTable = document.querySelector("#metadatatable");
+  metaDataTable.innerHTML = "";
+  metaDataTable.append(rowHead)
+  metaDataTable.append(rowValue)
 } 
-
-// https://plotly.com/python/
 
 createdropdown(initialDes);
 
@@ -65,7 +58,6 @@ async function stackedplot(descriptor) {
     return dictionary.des == descriptor;
     }
 
-  // Initialize an empty array for the sample's data
   let filteredDes = caddata.filter(desFinder);
 
   console.log(filteredDes)
@@ -142,9 +134,10 @@ async function stackedplot(descriptor) {
 
 stackedplot(initialDes);
 
-async function bubblechart(descriptor) {
-// Chart 2 // Bubble Chart (maybe 3-d) size, distance, 
+// Chart 2 // Bubble Chart size, distance, 
 //energy level, diameter to dictate size
+
+async function bubblechart(descriptor) {
 
   const response = await fetch ('/summary');
   const summarydata = await response.json();
@@ -260,108 +253,18 @@ var gaugedata = [
 var layout = { width: 450, height: 450, margin: { t: 0, b: 0 } };
 
 Plotly.newPlot('gauge', gaugedata, layout);
-
 }
 
 bubblechart(initialDes);
 
-
-
-async function fbMap() {
-  
-// Perform a GET request to the query URL/
-  const response = await fetch("/fireball")
-  const data = await response.json()
-  console.log(data)
-
-  // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  //     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-  // }).addTo(myMap); 
-  
-
-  // var fbIcon = L.icon({
-  //     iconUrl: 'images/fireball.png',
-  //     // shadowUrl: 'leaf-shadow.png',
-  //     iconSize:     [38, 95], // size of the icon
-  //     // shadowSize:   [50, 64], // size of the shadow
-  //     iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-  //     // shadowAnchor: [4, 62],  // the same for the shadow
-  //     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-  // });
-
-  var fbMarkers = [];
-  //iterate through data to grab details
-  for (let i = 0; i < data.length; i++ ) {
-      let fireballs = data[i];
-      // let location = quake.properties.place;
-      let date = new Date(fireballs.date);
-      let latitude = fireballs.latitude;
-      let longitude = fireballs.longitude;
-      console.log(latitude, longitude)
-      // define the markers
-      let fbMarker = L.marker([latitude, longitude], {
-      colorOpacity: 1,
-      color: "black",
-      weight: 1,   
-      fillOpacity: 1,
-      // fillColor: color, 
-      radius: 5
-      })
-      .bindPopup("<H2>" + location + '<H2>' + '<hr>' +
-      '<h4>' + 'Date: ' + date  + '<h4>');
-
-      fbMarkers.push(fbMarker);
-
-      }
-
-  let fbLayer = L.layerGroup(fbMarkers);
-
-  // adding tile layers
-  // let topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-  //     attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
-  // });
-
-  var street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    });
-  
-    
-  // creating tile group
-  var baseMaps = {
-    'Street Map': street,
-    // 'Topography': topo
-  }
-
-  // creating layer group 
-  var overlayMaps = {
-    'Fireball': fbLayer
-  };
-
-    // Creating the map object
-  var myMap = L.map("map", {
-      center: [37.09024, -95.712891],
-      zoom: 3.5,
-      layers: [street, fbLayer]
-  });
-  // myMap.addLayer(fbLayer)
-  // myMap.addLayer(streetMap)
-  
-  L.control.layers(baseMaps, overlayMaps, {
-    collapsed: false
-  }).addTo(myMap);   
-}
-
-fbMap();
-
 async function sentryTable(descriptor) {
+
   const response = await fetch ("/sentry")
   const data = await response.json()
-
 
   function desFinder(dictionary) {
     return dictionary.des == descriptor;
     }
-
 
   var sentryData = data.filter(desFinder)
   console.log(sentryData)
@@ -378,7 +281,6 @@ async function sentryTable(descriptor) {
 
   sentryTable.append(rowHead)
 
-
   for (let i = 0; i < sentryData.length; i++) {
     var rowValue = document.createElement("tr");
     for (let value of Object.values(sentryData[i])) {
@@ -389,34 +291,14 @@ async function sentryTable(descriptor) {
     }
     sentryTable.append(rowValue)
   }
-
-  // const metaDataTable = document.querySelector("#metadatatable");
-
-  // metaDataTable.append(rowHead)
-  // metaDataTable.append(rowValue)
   } 
-
 
 sentryTable(initialDes);
 
-
 document.querySelector("#selDataset").addEventListener("change", event => {
-  // Create a custom function to return a specific id's data
-  // function changedDes(dictionary) {
-  // return dictionary.des == event.target.value;
-  // }    
-    
-  // // Initialize an empty array for the sample's data
-  // let filteredSummary = data.samples.filter(changedDes);
-  // let filteredCad = data.metadata.filter(changedDes);
-  // let filteredData =
-  // console.log(filteredMetadata)
-  // console.log(filteredIDData)
-
   //Gauge, Velocity/Distance, Metadata, Table
   createdropdown(event.target.value);
   stackedplot(event.target.value);
   bubblechart(event.target.value);
   sentryTable(event.target.value);
 });
-// main();

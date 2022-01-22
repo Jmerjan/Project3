@@ -20,7 +20,6 @@ crossorigin="" />
 </head>
 
 <body class='background' style="background-image: url('https://images.unsplash.com/photo-1608754482805-6f630357358b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c3BhY2UlMjBiYWNrZ3JvdW5kfGVufDB8fDB8fA%3D%3D&w=1000&q=80');">
-<!-- <div class='background' style="background-image: url('https://images.unsplash.com/photo-1608754482805-6f630357358b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c3BhY2UlMjBiYWNrZ3JvdW5kfGVufDB8fDB8fA%3D%3D&w=1000&q=80');"> -->
   <div class="container">
     <div class="row">
       <div class="col-md-12 jumbotron text-center">
@@ -38,19 +37,10 @@ crossorigin="" />
         <h5>Select an NEO</h5>
         <select id="selDataset" onchange="optionChanged(this.value)"></select>
         <br>       <br>       <br>
-        <!-- <button type="button" class="btn btn-outline-danger" href="/fireball">Fireball Map</button> -->
         <a href="/fireballmap" class="btn btn-outline-danger" role="button">Fireball Map</a>
       </div>
 
-<!-- Metadata Card-->
-      <!-- <div class="card col-sm-10 " style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title"></h5>
-          <h6 class="card-subtitle mb-2 text-muted">NEO Metadata</h6>
-          <p id="sample-metadata" class="card-text"></p>
-        </div>
-      </div>
-    </div> -->
+<!-- Metadata Table-->
     <div class="col-sm-10">
       <div class="table-responsive">
         <table id='metadatatable' class="table table-bordered">
@@ -59,8 +49,6 @@ crossorigin="" />
     </div>
   </div>
   </div>
-
-
 
 <!-- Scatter Plot -->
     <div class="row mt-3">
@@ -78,34 +66,17 @@ crossorigin="" />
 </div>
 </div>
 
-
-<!-- <div class="row">
-  <div class="col-sm-12 d-flex justify-content-between"> 
-    {{Table | safe}}
-  </div>
-</div>
-
-<-- Gauge and Bubble Chart  -->
+<!-- Gauge and Bubble Chart  -->
 
     <div class="row mt-3">
       <div class="col-md-4">
         <div id="gauge"></div>
       </div>
-      <!-- <div class="col-md-8 col-sm-12 bg-success justify-content-between graph-container"> -->
       <div class="col-md-8">
         <div id="bubble"></div>
       </div>
     </div> 
   </div>
-<!-- Fire Ball Map -->
- <!-- <div class="container"> -->
-    <div class="row">
-      <div class="col-sm-12">
-        <div id="map"></div>
-      </div>
-    </div>
-  <!-- </div>   -->
-
 
 
   <!-- Leaflet JS -->
@@ -116,8 +87,6 @@ crossorigin="" />
 <!-- Our JavaScript  NEED TO UPDATE FILE PATH  -->
   <!-- <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script> -->
   <script type="text/javascript" src="static/app.js"></script>
-
-
 
 </body>
 

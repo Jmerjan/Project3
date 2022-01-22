@@ -24,17 +24,30 @@ async function createdropdown(descriptor) {
   }
 
   // panel dropdown info
-  var metadataPanel = document.getElementById("sample-metadata")
-  metadataPanel.innerHTML = ""
+  // var metadataPanel = document.getElementById("sample-metadata")
+  // metadataPanel.innerHTML = ""
 
   var result = data.filter(desFinder)
 
-for (let [key, value] of Object.entries(result[0])) {
-  // metadataPanel.append(`${key.toUpperCase()}: ${value}</h6>`)
-  var header = document.createElement("h6");
-  header.textContent = `${key.toUpperCase()}: ${value}`
-  metadataPanel.append(header)
+var rowHead = document.createElement("tr");
+var rowValue = document.createElement("tr");
+
+for (let key of Object.keys(result[0])) {
+  var tHead = document.createElement("th");
+  tHead.textContent = key;
+  rowHead.append(tHead)
 }
+
+for (let value of Object.values(result[0])) {
+var td = document.createElement("td");
+td.textContent = value;
+rowValue.append(td)
+}
+
+const metaDataTable = document.querySelector("#metadatatable");
+metaDataTable.innerHTML = "";
+metaDataTable.append(rowHead)
+metaDataTable.append(rowValue)
 } 
 
 // https://plotly.com/python/
@@ -257,19 +270,13 @@ bubblechart(initialDes);
 async function fbMap() {
   
 // Perform a GET request to the query URL/
-const response = await fetch ("/fireball")
-const data = await response.json()
+  const response = await fetch("/fireball")
+  const data = await response.json()
+  console.log(data)
 
-  // Creating the map object
-  const myMap = L.map("map", {
-    center: [37.09024, -95.712891],
-    zoom: 3.5
-    // layers: [streetMap, quakeMarkers]
-  });
-
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-  }).addTo(myMap); 
+  // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  //     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  // }).addTo(myMap); 
   
 
   // var fbIcon = L.icon({
@@ -282,17 +289,18 @@ const data = await response.json()
   //     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
   // });
 
-  const fbMarkers = [];
+  var fbMarkers = [];
   //iterate through data to grab details
-  for(let i = 0; i < data.length; i++ ) {
+  for (let i = 0; i < data.length; i++ ) {
       let fireballs = data[i];
       // let location = quake.properties.place;
       let date = new Date(fireballs.date);
-      let latitude = fireballs.latitude
-      let longitude = fireballs.longitude
+      let latitude = fireballs.latitude;
+      let longitude = fireballs.longitude;
+      console.log(latitude, longitude)
       // define the markers
-      let fbMarker = L.circleMarker([latitude, longitude], {
-      colorOpacity:1,
+      let fbMarker = L.marker([latitude, longitude], {
+      colorOpacity: 1,
       color: "black",
       weight: 1,   
       fillOpacity: 1,
@@ -306,40 +314,92 @@ const data = await response.json()
 
       }
 
-      let fbLayer = L.layerGroup(fbMarkers);
+  let fbLayer = L.layerGroup(fbMarkers);
 
-      // adding tile layers
-      let topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-          attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
-      });
+  // adding tile layers
+  // let topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+  //     attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+  // });
+
+  var street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    });
+  
     
-      let streetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      });
-            
-      // creating layer group 
-      const overlayMaps = {
-        'Fireball': fbLayer
-      };
-    
-      // creating tile group
-      const baseMaps = {
-        'Street Map': streetMap,
-        'Topography': topo
-      }
-     
-      myMap.addLayer(fbLayer)
-      myMap.addLayer(streetMap)
-      
-      L.control.layers(baseMaps, overlayMaps, {
-        collapsed: false
-      }).addTo(myMap);   
+  // creating tile group
+  var baseMaps = {
+    'Street Map': street,
+    // 'Topography': topo
+  }
 
+  // creating layer group 
+  var overlayMaps = {
+    'Fireball': fbLayer
+  };
 
-
+    // Creating the map object
+  var myMap = L.map("map", {
+      center: [37.09024, -95.712891],
+      zoom: 3.5,
+      layers: [street, fbLayer]
+  });
+  // myMap.addLayer(fbLayer)
+  // myMap.addLayer(streetMap)
+  
+  L.control.layers(baseMaps, overlayMaps, {
+    collapsed: false
+  }).addTo(myMap);   
 }
 
 fbMap();
+
+async function sentryTable(descriptor) {
+  const response = await fetch ("/sentry")
+  const data = await response.json()
+
+
+  function desFinder(dictionary) {
+    return dictionary.des == descriptor;
+    }
+
+
+  var sentryData = data.filter(desFinder)
+  console.log(sentryData)
+
+  const sentryTable = document.querySelector("#sentrydata");
+  sentryTable.innerHTML = "";
+  var rowHead = document.createElement("tr");
+
+  for (let key of Object.keys(sentryData[0])) {
+    var tHead = document.createElement("th");
+    tHead.textContent = key;
+    rowHead.append(tHead)
+  }
+
+  sentryTable.append(rowHead)
+
+
+  for (let i = 0; i < sentryData.length; i++) {
+    var rowValue = document.createElement("tr");
+    for (let value of Object.values(sentryData[i])) {
+      console.log(value)
+      // var rowValue = document.createElement("tr");
+      var td = document.createElement("td");
+      td.textContent = value;
+      console.log(td)
+      rowValue.append(td)
+    }
+    sentryTable.append(rowValue)
+  }
+
+  // const metaDataTable = document.querySelector("#metadatatable");
+
+  // metaDataTable.append(rowHead)
+  // metaDataTable.append(rowValue)
+  } 
+
+
+sentryTable(initialDes);
 
 
 document.querySelector("#selDataset").addEventListener("change", event => {
@@ -359,6 +419,6 @@ document.querySelector("#selDataset").addEventListener("change", event => {
   createdropdown(event.target.value);
   stackedplot(event.target.value);
   bubblechart(event.target.value);
-
+  sentryTable(event.target.value);
 });
 // main();

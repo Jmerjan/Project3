@@ -20,14 +20,10 @@ from sqlalchemy.ext.automap import automap_base
 #rds_connection_string = "postgres:m3t30rS4uru5!5m@localhost:5432/cad"
 # engine = create_engine(f'postgresql://{rds_connection_string}')
 engine = create_engine("sqlite:///cad.sqlite")
-# engine2 = create_engine("sqlite:///fireball.sqlite")
 Base = automap_base()
-# Base2 = automap_base()
 Base.prepare(engine, reflect = True)
-# Base2.prepare(engine2, reflect = True)
 #Base.classes.keys()
 print(Base.classes.keys())
-# print(Base2.classes.keys())
 Sentry = Base.classes.sentry
 Cad = Base.classes.cad
 Summary = Base.classes.summary
@@ -125,15 +121,15 @@ def fireball():
 
     fireballdata = []
 
-    for date, energy, latitude, latdirection, longitude, londirection, time, altitude_km in fireballinfo:
+    for date, energy, time, latitude, latdirection, longitude, londirection,  altitude_km in fireballinfo:
         cleanfire = {} 
         cleanfire['date'] = date
         cleanfire['energy'] = energy
+        cleanfire['time'] = time
         cleanfire['latitude'] = latitude
         cleanfire['latdirection'] = latdirection
         cleanfire['longitude']= longitude
         cleanfire['londirection'] = londirection
-        cleanfire['time'] = time
         cleanfire['altitude_km'] = altitude_km
         fireballdata.append(cleanfire)
     return jsonify(fireballdata)

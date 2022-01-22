@@ -3,3 +3,21 @@
     flex-wrap: wrap;
     width: 100%;
   }
+
+
+  body,
+  html {
+    height: 100%;
+  }
+
+  #map {
+    height: 20%
+  }
+
+.dashboard {
+  font-weight: bold;
+}
+
+h5 {
+  font-weight: bold;
+}

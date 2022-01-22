@@ -28,3 +28,8 @@ h5 {
   height: 280px;
   overflow: auto
 }
+
+h3 {
+  color: white;
+  text-align: center;  
+}

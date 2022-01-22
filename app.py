@@ -127,23 +127,20 @@ def sentry():
 
     session = Session(engine)
 
-    sentryinfo = session.query(Sentry.energy, Sentry.ip, Sentry.ts, Sentry.date, Sentry.sigma_vi, Sentry.ps, Sentry.des)
+    sentryinfo = session.query(Sentry.energy, Sentry.ip, Sentry.date, Sentry.sigma_vi, Sentry.des)
 
     session.close()
 
-    sentry_df = pd.DataFrame(sentryinfo, columns=['energy', 'ip', 'ts', 'date', 'sigma_vi', 'ps', 'des'])
+    sentry_df = pd.DataFrame(sentryinfo, columns=['energy', 'ip', 'date', 'sigma_vi', 'des'])
 
     sentrydata = []
 
-    for energy, ip, ts, date, sigma_vi, ps, des in sentryinfo:
+    for energy, ip, date, sigma_vi, des in sentryinfo:
         cleansentry = {}
-        # cleansentry['id'] = id
         cleansentry['energy'] = energy
         cleansentry['ip'] = ip
-        cleansentry['ts'] = ts
         cleansentry['date'] = date
         cleansentry['sigma_vi'] = sigma_vi
-        cleansentry['ps'] = ps
         cleansentry['des'] = des
         sentrydata.append(cleansentry)
     return  jsonify(sentrydata)

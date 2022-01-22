@@ -382,11 +382,9 @@ async function sentryTable(descriptor) {
   for (let i = 0; i < sentryData.length; i++) {
     var rowValue = document.createElement("tr");
     for (let value of Object.values(sentryData[i])) {
-      console.log(value)
       // var rowValue = document.createElement("tr");
       var td = document.createElement("td");
       td.textContent = value;
-      console.log(td)
       rowValue.append(td)
     }
     sentryTable.append(rowValue)

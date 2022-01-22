@@ -70,15 +70,15 @@ def summary():
     session = Session(engine)
 
     summarychartinfo = session.query(Summary.energy, Summary.ip, Summary.mass, Summary.des, Summary.diameter, Summary.darc, Summary.h,
-                                    Summary.nobs, Summary.v_inf, Summary.first_obs, Summary.method, Summary.pdate, Summary.ndop,
-                                    Summary.cdate, Summary.ps_cum, Summary.ndel, Summary.v_imp, Summary.ps_max, Summary.last_obs,
-                                    Summary.fullname, Summary.n_imp, Summary.ts_max, Summary.nsat)
+                                    Summary.nobs, Summary.v_inf, Summary.first_obs, Summary.pdate,
+                                    Summary.cdate, Summary.ps_cum, Summary.v_imp, Summary.ps_max, Summary.last_obs,
+                                    Summary.fullname, Summary.n_imp, Summary.ts_max)
 
     session.close()
 
-    summary_df = pd.DataFrame(summarychartinfo, columns=['energy', 'ip', 'mass', 'des', 'diameter', 'h', 'darc','nobs', 'v_inf', 'first_obs', 'method', 'pdate', 'ndop', 'cdate', 'ps_cum', 'ndel', 'v_imp', 'ps_max', 'last_obs', 'fullname', 'n_imp', 'ts_max',' nsat'])
+    summary_df = pd.DataFrame(summarychartinfo, columns=['energy', 'ip', 'mass', 'des', 'diameter', 'h', 'darc','nobs', 'v_inf', 'first_obs', 'pdate', 'cdate', 'ps_cum', 'v_imp', 'ps_max', 'last_obs', 'fullname', 'n_imp', 'ts_max'])
     summaryinfo = []
-    for energy , ip, mass, des, diameter, darc, h, nobs, v_inf, first_obs, method, pdate, ndop, cdate, ps_cum, ndel, v_imp, ps_max, last_obs, fullname, n_imp, ts_max, nsat  in summarychartinfo:
+    for energy , ip, mass, des, diameter, darc, h, nobs, v_inf, first_obs, pdate, cdate, ps_cum, v_imp, ps_max, last_obs, fullname, n_imp, ts_max, in summarychartinfo:
         cleaninfo = {}
         cleaninfo['energy'] = energy
         cleaninfo['darc'] = darc
@@ -88,20 +88,16 @@ def summary():
         cleaninfo['mass'] = mass
         cleaninfo['v_inf'] = v_inf
         cleaninfo['first_obs'] = first_obs
-        cleaninfo['method'] = method
         cleaninfo['pdate'] = pdate
-        cleaninfo['ndop'] = ndop
         cleaninfo['cdate'] = cdate
         cleaninfo['ps_cum'] = ps_cum
         cleaninfo['diameter'] = diameter
-        cleaninfo['ndel'] = ndel
         cleaninfo['v_imp'] = v_imp
         cleaninfo['ps_max'] = ps_max
-        cleaninfo['lsat_obs'] = last_obs
+        cleaninfo['last_obs'] = last_obs
         cleaninfo['fullname'] = fullname
         cleaninfo['n_imp'] = n_imp
         cleaninfo['ts_max'] = ts_max
-        cleaninfo['nsat']  = nsat
         cleaninfo['des'] = des
         summaryinfo.append(cleaninfo)
     return jsonify(summaryinfo)

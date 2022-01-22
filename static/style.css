@@ -20,4 +20,26 @@
 
 h5 {
   font-weight: bold;
+  color: white;
+}
+
+.background{
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover
+  }
+
+#metadatatable,
+#sentrydata {
+  background-color: white;
+}
+
+#sentrytable {
+  height: 280px;
+  overflow: auto
 }

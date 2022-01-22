@@ -130,6 +130,11 @@ def fireball():
         fireballdata.append(cleanfire)
     return jsonify(fireballdata)
 
+@app.route('/fireballmap')
+def fireballmap():
+
+    return render_template('fireball.html')
+
 # route sentry 
 @app.route('/sentry')
 def sentry():
